@@ -1,5 +1,6 @@
 import pandas as pd
 import joblib
+import os
 
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
@@ -40,10 +41,13 @@ print("Precision:", precision_score(y_test, y_pred))
 print("Recall:", recall_score(y_test, y_pred))
 print("F1-score:", f1_score(y_test, y_pred))
 
-# Save model + scaler
-joblib.dump(model, "breast_cancer_model.pkl")
-joblib.dump(scaler, "scaler.pkl")
-print("Saved: breast_cancer_model.pkl and scaler.pkl")
+# Save model + scaler to model directory
+model_dir = "."
+model_path = os.path.join(model_dir, "breast_cancer_model.pkl")
+scaler_path = os.path.join(model_dir, "scaler.pkl")
+joblib.dump(model, model_path)
+joblib.dump(scaler, scaler_path)
+print(f"Saved: {model_path} and {scaler_path}")
 
 # Reload test (no retraining)
 loaded_model = joblib.load("breast_cancer_model.pkl")
